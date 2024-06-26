@@ -1,8 +1,10 @@
+import CarouselContainer from "./Carousel/Container";
+
 function App() {
 	return (
-		<h1 className="text-3xl font-bold underline">
-			What is it gonna be this time?
-		</h1>
+		<div className="container mx-auto py-12">
+			<CarouselContainer />
+		</div>
 	);
 }
 
