@@ -1,6 +1,8 @@
 import { useState } from "react";
 import CarouselImage from "./Image";
 import CarouselNavigation from "./Navigation";
+import { SLIDES, SLIDES_LENGTH } from "../slides";
+import SlideDots from "./SlideDots";
 
 const CarouselContainer = () => {
 	const [currentSlide, setCurrentSlide] = useState(0);
@@ -12,7 +14,7 @@ const CarouselContainer = () => {
 	};
 	const handleNavigateRight = () => {
 		setCurrentSlide((prevSlide) =>
-			prevSlide < 6 ? prevSlide + 1 : prevSlide,
+			prevSlide < SLIDES_LENGTH ? prevSlide + 1 : prevSlide,
 		);
 	};
 
@@ -23,12 +25,13 @@ const CarouselContainer = () => {
 				isValidNavigation={currentSlide !== 0}
 				handleNavigate={handleNavigateLeft}
 			/>
-			<CarouselImage
-				imageSrc={`https://picsum.photos/id/${currentSlide + 50}/1920/1080`}
-			/>
+			<div className="flex flex-col">
+				<CarouselImage imageSrc={SLIDES[currentSlide].imageUrl} />
+				<SlideDots currentSlide={currentSlide} />
+			</div>
 			<CarouselNavigation
 				direction="right"
-				isValidNavigation={currentSlide !== 5}
+				isValidNavigation={currentSlide !== SLIDES_LENGTH - 1}
 				handleNavigate={handleNavigateRight}
 			/>
 		</div>

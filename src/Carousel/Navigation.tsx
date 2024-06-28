@@ -14,7 +14,7 @@ const CarouselNavigation = ({
 	return (
 		<button
 			type="button"
-			className="text-5xl disabled:opacity-50"
+			className="text-5xl disabled:opacity-25 transition ease-in-out delay-25"
 			onClick={(e) => {
 				e.preventDefault();
 				handleNavigate();
