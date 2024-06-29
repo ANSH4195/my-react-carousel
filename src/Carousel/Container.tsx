@@ -3,9 +3,12 @@ import CarouselImage from "./Image";
 import CarouselNavigation from "./Navigation";
 import { SLIDES, SLIDES_LENGTH } from "../slides";
 import SlideDots from "./SlideDots";
+import { useImagePreloader } from "../useImagePreloader.hook";
+import Loader from "../Loader";
 
 const CarouselContainer = () => {
 	const [currentSlide, setCurrentSlide] = useState(0);
+	const { arePreloaded } = useImagePreloader(SLIDES);
 
 	const handleNavigateLeft = () => {
 		setCurrentSlide((prevSlide) =>
@@ -17,22 +20,32 @@ const CarouselContainer = () => {
 			prevSlide < SLIDES_LENGTH ? prevSlide + 1 : prevSlide,
 		);
 	};
+	const handleNavigateDots = (index: number) => {
+		setCurrentSlide(index);
+	};
 
-	return (
-		<div className="flex items-center">
-			<CarouselNavigation
-				direction="left"
-				isValidNavigation={currentSlide !== 0}
-				handleNavigate={handleNavigateLeft}
-			/>
-			<div className="flex flex-col">
+	return !arePreloaded ? (
+		<div className="flex items-center justify-center h-52">
+			<Loader />
+		</div>
+	) : (
+		<div className="flex flex-col">
+			<div className="flex items-center">
+				<CarouselNavigation
+					direction="left"
+					isValidNavigation={currentSlide !== 0}
+					handleNavigate={handleNavigateLeft}
+				/>
 				<CarouselImage imageSrc={SLIDES[currentSlide].imageUrl} />
-				<SlideDots currentSlide={currentSlide} />
+				<CarouselNavigation
+					direction="right"
+					isValidNavigation={currentSlide !== SLIDES_LENGTH - 1}
+					handleNavigate={handleNavigateRight}
+				/>
 			</div>
-			<CarouselNavigation
-				direction="right"
-				isValidNavigation={currentSlide !== SLIDES_LENGTH - 1}
-				handleNavigate={handleNavigateRight}
+			<SlideDots
+				currentSlide={currentSlide}
+				handleNavigate={handleNavigateDots}
 			/>
 		</div>
 	);
