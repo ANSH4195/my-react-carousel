@@ -1,13 +1,20 @@
 import { RxDotFilled } from "react-icons/rx";
 import { SLIDES } from "../slides";
+import type { CarouselContainerProps } from "./Container";
 
-interface SlideDotsProps {
+interface SlideDotsProps extends CarouselContainerProps {
 	currentSlide: number;
 	handleNavigate: (idx: number) => void;
 }
 
-const SlideDots = ({ currentSlide, handleNavigate }: SlideDotsProps) => (
-	<div className="flex justify-center space-x-2 my-2 items-center">
+const SlideDots = ({
+	currentSlide,
+	isVertical = false,
+	handleNavigate,
+}: SlideDotsProps) => (
+	<div
+		className={`flex ${isVertical && "flex-col"} justify-center ${!isVertical && "space-x-2 my-2"} items-center`}
+	>
 		{SLIDES.map((slide, idx) => (
 			<button
 				type="button"
