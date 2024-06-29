@@ -1,16 +1,36 @@
-import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
+import {
+	FiChevronDown,
+	FiChevronLeft,
+	FiChevronRight,
+	FiChevronUp,
+} from "react-icons/fi";
+import type { CarouselContainerProps } from "./Container";
 
-interface CarouselNavigationProps {
-	direction: "right" | "left";
+interface CarouselNavigationProps extends CarouselContainerProps {
+	scrollDirection: "backward" | "forward";
 	isValidNavigation: boolean;
 	handleNavigate: () => void;
 }
 
 const CarouselNavigation = ({
-	direction,
+	scrollDirection,
+	isVertical = false,
 	isValidNavigation,
 	handleNavigate,
 }: CarouselNavigationProps) => {
+	const getIcon = () => {
+		if (scrollDirection === "backward") {
+			if (isVertical) {
+				return <FiChevronUp />;
+			}
+			return <FiChevronLeft />;
+		}
+		if (isVertical) {
+			return <FiChevronDown />;
+		}
+		return <FiChevronRight />;
+	};
+
 	return (
 		<button
 			type="button"
@@ -21,7 +41,7 @@ const CarouselNavigation = ({
 			}}
 			disabled={!isValidNavigation}
 		>
-			{direction === "left" ? <FiChevronLeft /> : <FiChevronRight />}
+			{getIcon()}
 		</button>
 	);
 };

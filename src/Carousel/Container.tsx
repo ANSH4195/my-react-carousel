@@ -6,7 +6,11 @@ import SlideDots from "./SlideDots";
 import { useImagePreloader } from "../useImagePreloader.hook";
 import Loader from "../Loader";
 
-const CarouselContainer = () => {
+export interface CarouselContainerProps {
+	isVertical?: boolean;
+}
+
+const CarouselContainer = ({ isVertical = false }: CarouselContainerProps) => {
 	const [currentSlide, setCurrentSlide] = useState(0);
 	const { arePreloaded } = useImagePreloader(SLIDES);
 
@@ -29,21 +33,24 @@ const CarouselContainer = () => {
 			<Loader />
 		</div>
 	) : (
-		<div className="flex flex-col">
-			<div className="flex items-center">
+		<div className={`flex ${!isVertical && "flex-col"}`}>
+			<div className={`flex ${isVertical && "flex-col"} items-center`}>
 				<CarouselNavigation
-					direction="left"
+					scrollDirection="backward"
+					isVertical={isVertical}
 					isValidNavigation={currentSlide !== 0}
 					handleNavigate={handleNavigateLeft}
 				/>
 				<CarouselImage imageSrc={SLIDES[currentSlide].imageUrl} />
 				<CarouselNavigation
-					direction="right"
+					scrollDirection="forward"
+					isVertical={isVertical}
 					isValidNavigation={currentSlide !== SLIDES_LENGTH - 1}
 					handleNavigate={handleNavigateRight}
 				/>
 			</div>
 			<SlideDots
+				isVertical={isVertical}
 				currentSlide={currentSlide}
 				handleNavigate={handleNavigateDots}
 			/>
