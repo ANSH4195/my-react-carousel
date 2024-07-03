@@ -8,9 +8,15 @@ import Loader from "../Loader";
 
 export interface CarouselContainerProps {
 	isVertical?: boolean;
+	isFullscreen?: boolean;
+	onToggleFullscreen?: () => void;
 }
 
-const CarouselContainer = ({ isVertical = false }: CarouselContainerProps) => {
+const CarouselContainer = ({
+	isVertical = false,
+	isFullscreen = false,
+	onToggleFullscreen,
+}: CarouselContainerProps) => {
 	const [currentSlide, setCurrentSlide] = useState(0);
 	const { arePreloaded } = useImagePreloader(SLIDES);
 
@@ -51,6 +57,8 @@ const CarouselContainer = ({ isVertical = false }: CarouselContainerProps) => {
 			</div>
 			<SlideDots
 				isVertical={isVertical}
+				isFullscreen={isFullscreen}
+				onToggleFullscreen={onToggleFullscreen}
 				currentSlide={currentSlide}
 				handleNavigate={handleNavigateDots}
 			/>
