@@ -18,8 +18,10 @@ const BottomControls = ({
 	handleNavigate,
 }: SlideDotsProps) => {
 	const containerClasses = classNames(
-		"flex justify-between items-center absolute text-white text-6xl",
+		"flex justify-between items-center text-white text-6xl",
 		{
+			"fixed ": isFullscreen,
+			"absolute ": !isFullscreen,
 			"px-2 py-4 flex-col top-0 bottom-0 right-0": isVertical,
 			"px-4 py-2 left-0 right-0 bottom-0": !isVertical,
 		},

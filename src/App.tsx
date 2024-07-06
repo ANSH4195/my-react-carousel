@@ -42,7 +42,7 @@ function App() {
 				/>
 			) : (
 				<div
-					className="fixed inset-0 z-10 w-screen h-screen bg-slate-200 flex items-center px-4"
+					className="fixed inset-0 z-10 w-screen h-screen bg-gray-900 flex items-center px-4"
 					aria-labelledby="modal-backdrop"
 					role="dialog"
 					aria-modal="true"
