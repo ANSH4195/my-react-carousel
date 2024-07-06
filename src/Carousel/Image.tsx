@@ -4,7 +4,7 @@ interface CarouselImageProps {
 
 const CarouselImage = ({ imageSrc }: CarouselImageProps) => {
 	return (
-		<div className="min-w-0 px-2">
+		<div className="min-w-0">
 			<img
 				alt="useful-text"
 				src={imageSrc}

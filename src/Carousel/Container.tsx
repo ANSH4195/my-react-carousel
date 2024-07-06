@@ -2,7 +2,7 @@ import { useState } from "react";
 import CarouselImage from "./Image";
 import CarouselNavigation from "./Navigation";
 import { SLIDES, SLIDES_LENGTH } from "../slides";
-import SlideDots from "./SlideDots";
+import BottomControls from "./BottomControls";
 import { useImagePreloader } from "../useImagePreloader.hook";
 import Loader from "../Loader";
 
@@ -39,23 +39,21 @@ const CarouselContainer = ({
 			<Loader />
 		</div>
 	) : (
-		<div className={`flex ${!isVertical && "flex-col"}`}>
-			<div className={`flex ${isVertical && "flex-col"} items-center`}>
-				<CarouselNavigation
-					scrollDirection="backward"
-					isVertical={isVertical}
-					isValidNavigation={currentSlide !== 0}
-					handleNavigate={handleNavigateLeft}
-				/>
-				<CarouselImage imageSrc={SLIDES[currentSlide].imageUrl} />
-				<CarouselNavigation
-					scrollDirection="forward"
-					isVertical={isVertical}
-					isValidNavigation={currentSlide !== SLIDES_LENGTH - 1}
-					handleNavigate={handleNavigateRight}
-				/>
-			</div>
-			<SlideDots
+		<div className="relative">
+			<CarouselNavigation
+				scrollDirection="backward"
+				isVertical={isVertical}
+				isValidNavigation={currentSlide !== 0}
+				handleNavigate={handleNavigateLeft}
+			/>
+			<CarouselImage imageSrc={SLIDES[currentSlide].imageUrl} />
+			<CarouselNavigation
+				scrollDirection="forward"
+				isVertical={isVertical}
+				isValidNavigation={currentSlide !== SLIDES_LENGTH - 1}
+				handleNavigate={handleNavigateRight}
+			/>
+			<BottomControls
 				isVertical={isVertical}
 				isFullscreen={isFullscreen}
 				onToggleFullscreen={onToggleFullscreen}
