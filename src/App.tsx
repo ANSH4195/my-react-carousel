@@ -9,8 +9,8 @@ import CarouselContainer from "./Carousel/Container";
 
 function App() {
 	const modalContainerRef = useRef<HTMLDivElement | null>(null);
-	const [isVertical, setIsVertical] = useState(false);
 	const [isFullscreen, setIsFullscreen] = useState(false);
+	const [isVertical, setIsVertical] = useState(false);
 
 	const onToggleFullscreen = () => {
 		setIsFullscreen((prev) => !prev);
@@ -42,10 +42,10 @@ function App() {
 				/>
 			) : (
 				<div
-					className="fixed inset-0 z-10 w-screen h-screen bg-gray-900 flex items-center px-4"
 					aria-labelledby="modal-backdrop"
-					role="dialog"
 					aria-modal="true"
+					role="dialog"
+					className="fixed inset-0 z-10 w-screen h-screen bg-gray-900 flex items-center px-4"
 					onMouseDown={onClickModalContainer}
 				>
 					<div ref={modalContainerRef}>

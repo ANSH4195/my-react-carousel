@@ -1,21 +1,21 @@
 import { useState } from "react";
+import useTransition from "react-transition-state";
+import Loader from "../Loader";
+import { SLIDES, SLIDES_LENGTH } from "../slides";
+import { useImagePreloader } from "../useImagePreloader.hook";
+import BottomControls from "./BottomControls";
 import CarouselImage from "./Image";
 import CarouselNavigation from "./Navigation";
-import { SLIDES, SLIDES_LENGTH } from "../slides";
-import BottomControls from "./BottomControls";
-import { useImagePreloader } from "../useImagePreloader.hook";
-import Loader from "../Loader";
-import useTransition from "react-transition-state";
 
 export interface CarouselContainerProps {
-	isVertical?: boolean;
 	isFullscreen?: boolean;
+	isVertical?: boolean;
 	onToggleFullscreen?: () => void;
 }
 
 const CarouselContainer = ({
-	isVertical = false,
 	isFullscreen = false,
+	isVertical = false,
 	onToggleFullscreen,
 }: CarouselContainerProps) => {
 	const [currentSlide, setCurrentSlide] = useState(0);
@@ -48,25 +48,25 @@ const CarouselContainer = ({
 	) : (
 		<div className="relative">
 			<CarouselNavigation
-				scrollDirection="backward"
-				isVertical={isVertical}
-				isValidNavigation={currentSlide !== 0}
 				handleNavigate={handleNavigateLeft}
+				isValidNavigation={currentSlide !== 0}
+				isVertical={isVertical}
+				scrollDirection="backward"
 			/>
 			<CarouselImage imageSrc={SLIDES[currentSlide].imageUrl} />
 			<CarouselNavigation
-				scrollDirection="forward"
-				isVertical={isVertical}
-				isValidNavigation={currentSlide !== SLIDES_LENGTH - 1}
 				handleNavigate={handleNavigateRight}
+				isValidNavigation={currentSlide !== SLIDES_LENGTH - 1}
+				isVertical={isVertical}
+				scrollDirection="forward"
 			/>
 			<BottomControls
-				isVertical={isVertical}
-				isFullscreen={isFullscreen}
-				transitionStatus={status}
-				onToggleFullscreen={onToggleFullscreen}
 				currentSlide={currentSlide}
 				handleNavigate={handleNavigateDots}
+				isFullscreen={isFullscreen}
+				isVertical={isVertical}
+				onToggleFullscreen={onToggleFullscreen}
+				transitionStatus={status}
 			/>
 		</div>
 	);

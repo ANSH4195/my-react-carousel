@@ -8,17 +8,17 @@ import type { CarouselContainerProps } from "./Container";
 
 interface SlideDotsProps extends CarouselContainerProps {
 	currentSlide: number;
-	transitionStatus: TransitionStatus;
 	handleNavigate: (idx: number) => void;
+	transitionStatus: TransitionStatus;
 }
 
 const BottomControls = ({
 	currentSlide,
-	transitionStatus,
-	isVertical = false,
-	isFullscreen,
-	onToggleFullscreen,
 	handleNavigate,
+	isFullscreen,
+	isVertical = false,
+	onToggleFullscreen,
+	transitionStatus,
 }: SlideDotsProps) => {
 	const containerClasses = classNames(
 		"flex justify-between items-center text-white text-6xl",

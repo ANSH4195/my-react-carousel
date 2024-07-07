@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import {
 	FiChevronDown,
 	FiChevronLeft,
@@ -5,12 +6,11 @@ import {
 	FiChevronUp,
 } from "react-icons/fi";
 import type { CarouselContainerProps } from "./Container";
-import classNames from "classnames";
 
 interface CarouselNavigationProps extends CarouselContainerProps {
-	scrollDirection: "backward" | "forward";
-	isValidNavigation: boolean;
 	handleNavigate: () => void;
+	isValidNavigation: boolean;
+	scrollDirection: "backward" | "forward";
 }
 
 const getIcon = (
@@ -30,10 +30,10 @@ const getIcon = (
 };
 
 const CarouselNavigation = ({
-	scrollDirection,
-	isVertical = false,
-	isValidNavigation,
 	handleNavigate,
+	isValidNavigation,
+	isVertical = false,
+	scrollDirection,
 }: CarouselNavigationProps) => {
 	const buttonClasses = classNames(
 		"text-8xl absolute text-white disabled:opacity-5 transition ease-in-out delay-25",
