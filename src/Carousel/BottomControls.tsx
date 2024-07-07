@@ -2,16 +2,19 @@ import classNames from "classnames";
 import { BiExitFullscreen, BiFullscreen } from "react-icons/bi";
 import { IoPlayOutline } from "react-icons/io5";
 import { RxDot, RxDotFilled } from "react-icons/rx";
+import type { TransitionStatus } from "react-transition-state";
 import { SLIDES } from "../slides";
 import type { CarouselContainerProps } from "./Container";
 
 interface SlideDotsProps extends CarouselContainerProps {
 	currentSlide: number;
+	transitionStatus: TransitionStatus;
 	handleNavigate: (idx: number) => void;
 }
 
 const BottomControls = ({
 	currentSlide,
+	transitionStatus,
 	isVertical = false,
 	isFullscreen,
 	onToggleFullscreen,
@@ -27,6 +30,11 @@ const BottomControls = ({
 		},
 	);
 
+	const activeDotClasses = classNames("transition-all ease-in-out", {
+		"animate-fade-up":
+			transitionStatus === "entering" || transitionStatus === "exiting",
+	});
+
 	return (
 		<div className={containerClasses}>
 			<button type="button">
@@ -39,7 +47,11 @@ const BottomControls = ({
 						key={slide.altText}
 						onClick={() => handleNavigate(idx)}
 					>
-						{currentSlide === idx ? <RxDotFilled /> : <RxDot />}
+						{currentSlide === idx ? (
+							<RxDotFilled className={activeDotClasses} />
+						) : (
+							<RxDot />
+						)}
 					</button>
 				))}
 			</div>

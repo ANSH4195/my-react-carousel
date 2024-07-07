@@ -5,6 +5,7 @@ import { SLIDES, SLIDES_LENGTH } from "../slides";
 import BottomControls from "./BottomControls";
 import { useImagePreloader } from "../useImagePreloader.hook";
 import Loader from "../Loader";
+import useTransition from "react-transition-state";
 
 export interface CarouselContainerProps {
 	isVertical?: boolean;
@@ -19,19 +20,25 @@ const CarouselContainer = ({
 }: CarouselContainerProps) => {
 	const [currentSlide, setCurrentSlide] = useState(0);
 	const { arePreloaded } = useImagePreloader(SLIDES);
+	const [{ status }, toggle] = useTransition({
+		timeout: 1000,
+	});
 
 	const handleNavigateLeft = () => {
 		setCurrentSlide((prevSlide) =>
 			prevSlide > 0 ? prevSlide - 1 : prevSlide,
 		);
+		toggle();
 	};
 	const handleNavigateRight = () => {
 		setCurrentSlide((prevSlide) =>
 			prevSlide < SLIDES_LENGTH ? prevSlide + 1 : prevSlide,
 		);
+		toggle();
 	};
 	const handleNavigateDots = (index: number) => {
 		setCurrentSlide(index);
+		toggle();
 	};
 
 	return !arePreloaded ? (
@@ -56,6 +63,7 @@ const CarouselContainer = ({
 			<BottomControls
 				isVertical={isVertical}
 				isFullscreen={isFullscreen}
+				transitionStatus={status}
 				onToggleFullscreen={onToggleFullscreen}
 				currentSlide={currentSlide}
 				handleNavigate={handleNavigateDots}
