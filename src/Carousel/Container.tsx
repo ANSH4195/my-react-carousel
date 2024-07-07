@@ -24,18 +24,16 @@ const CarouselContainer = ({
 		timeout: 1000,
 	});
 
-	const handleNavigateLeft = () => {
-		setCurrentSlide((prevSlide) =>
-			prevSlide > 0 ? prevSlide - 1 : prevSlide,
-		);
+	const handleNavigation = (direction: "backward" | "forward") => () => {
+		setCurrentSlide((prevSlide) => {
+			if (direction === "backward") {
+				return prevSlide === 0 ? SLIDES_LENGTH - 1 : prevSlide - 1;
+			}
+			return (prevSlide + 1) % SLIDES_LENGTH;
+		});
 		toggle();
 	};
-	const handleNavigateRight = () => {
-		setCurrentSlide((prevSlide) =>
-			prevSlide < SLIDES_LENGTH ? prevSlide + 1 : prevSlide,
-		);
-		toggle();
-	};
+
 	const handleNavigateDots = (index: number) => {
 		setCurrentSlide(index);
 		toggle();
@@ -48,15 +46,13 @@ const CarouselContainer = ({
 	) : (
 		<div className="relative">
 			<CarouselNavigation
-				handleNavigate={handleNavigateLeft}
-				isValidNavigation={currentSlide !== 0}
+				handleNavigate={handleNavigation("backward")}
 				isVertical={isVertical}
 				scrollDirection="backward"
 			/>
 			<CarouselImage imageSrc={SLIDES[currentSlide].imageUrl} />
 			<CarouselNavigation
-				handleNavigate={handleNavigateRight}
-				isValidNavigation={currentSlide !== SLIDES_LENGTH - 1}
+				handleNavigate={handleNavigation("forward")}
 				isVertical={isVertical}
 				scrollDirection="forward"
 			/>

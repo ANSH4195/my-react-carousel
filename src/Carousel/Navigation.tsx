@@ -9,7 +9,6 @@ import type { CarouselContainerProps } from "./Container";
 
 interface CarouselNavigationProps extends CarouselContainerProps {
 	handleNavigate: () => void;
-	isValidNavigation: boolean;
 	scrollDirection: "backward" | "forward";
 }
 
@@ -31,12 +30,11 @@ const getIcon = (
 
 const CarouselNavigation = ({
 	handleNavigate,
-	isValidNavigation,
 	isVertical = false,
 	scrollDirection,
 }: CarouselNavigationProps) => {
 	const buttonClasses = classNames(
-		"text-8xl absolute text-white disabled:opacity-5 transition ease-in-out delay-25",
+		"text-8xl absolute text-white transition ease-in-out delay-25",
 		{
 			"right-0 left-0 bottom-0 flex justify-center":
 				isVertical && scrollDirection === "forward",
@@ -57,7 +55,6 @@ const CarouselNavigation = ({
 				e.preventDefault();
 				handleNavigate();
 			}}
-			disabled={!isValidNavigation}
 		>
 			{getIcon(scrollDirection, isVertical)}
 		</button>
