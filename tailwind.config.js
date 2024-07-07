@@ -7,7 +7,8 @@ export default {
     theme: {
         extend: {
             animation: {
-                'fade-up': 'fadeUp 0.5s ease forwards',
+                'fade-up': 'fadeUp 400ms ease forwards',
+                'fade-left': 'fadeLeft 400ms ease backwards'
             },
             keyframes: {
                 fadeUp: {
@@ -19,7 +20,17 @@ export default {
                         opacity: 1,
                         "transform": "translateY(0)"
                     }
-                }
+                },
+                fadeLeft: {
+                    "0%": {
+                        opacity: 0.5,
+                        "transform": "translateX(2rem)"
+                    },
+                    "100%": {
+                        opacity: 1,
+                        "transform": "translateX(0)"
+                    }
+                },
             }
         },
     },

@@ -21,7 +21,7 @@ const CarouselContainer = ({
 	const [currentSlide, setCurrentSlide] = useState(0);
 	const { arePreloaded } = useImagePreloader(SLIDES);
 	const [{ status }, toggle] = useTransition({
-		timeout: 1000,
+		timeout: 400,
 	});
 
 	const handleNavigation = (direction: "backward" | "forward") => () => {
@@ -45,12 +45,15 @@ const CarouselContainer = ({
 		</div>
 	) : (
 		<div className="relative">
+			<CarouselImage
+				imageSrc={SLIDES[currentSlide].imageUrl}
+				transitionStatus={status}
+			/>
 			<CarouselNavigation
 				handleNavigate={handleNavigation("backward")}
 				isVertical={isVertical}
 				scrollDirection="backward"
 			/>
-			<CarouselImage imageSrc={SLIDES[currentSlide].imageUrl} />
 			<CarouselNavigation
 				handleNavigate={handleNavigation("forward")}
 				isVertical={isVertical}
