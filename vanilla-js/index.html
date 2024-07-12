@@ -1,0 +1,230 @@
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Vite + React + TS</title>
+		<script src="https://cdn.tailwindcss.com"></script>
+		<script>
+			tailwind.config = {
+				theme: {
+					extend: {
+						animation: {
+							'fade-up': 'fadeUp 400ms ease forwards',
+							'fade-left': 'fadeLeft 400ms ease backwards',
+						},
+						keyframes: {
+							fadeUp: {
+								'0%': {
+									opacity: 0,
+									transform: 'translateY(10px)',
+								},
+								'100%': {
+									opacity: 1,
+									transform: 'translateY(0)',
+								},
+							},
+							fadeLeft: {
+								'0%': {
+									opacity: 0.5,
+									transform: 'translateX(2rem)',
+								},
+								'100%': {
+									opacity: 1,
+									transform: 'translateX(0)',
+								},
+							},
+						},
+					},
+				},
+			};
+		</script>
+	</head>
+
+	<body>
+		<div id="root" class="container mx-auto py-12">
+			<button
+				type="button"
+				class="py-3 px-5 my-3 rounded-xl bg-slate-200 active:bg-white"
+			>
+				Toggle Vertical Mode
+			</button>
+			<div id="carousel-container" class="relative">
+				<div id="carousel-image" class="min-w-0">
+					<img
+						alt="useful-text"
+						src="https://picsum.photos/id/501/1920/1080"
+						class="rounded-lg object-contain"
+					/>
+				</div>
+				<button
+					id="navigate-backward"
+					type="button"
+					class="text-8xl absolute text-white transition ease-in-out delay-25 top-0 bottom-0 left-0"
+				>
+					<svg
+						stroke="currentColor"
+						fill="none"
+						stroke-width="2"
+						viewBox="0 0 24 24"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						height="1em"
+						width="1em"
+						xmlns="http://www.w3.org/2000/svg"
+					>
+						<polyline points="15 18 9 12 15 6"></polyline>
+					</svg>
+				</button>
+				<button
+					id="navigate-forward"
+					type="button"
+					class="text-8xl absolute text-white transition ease-in-out delay-25 top-0 bottom-0 right-0"
+				>
+					<svg
+						stroke="currentColor"
+						fill="none"
+						stroke-width="2"
+						viewBox="0 0 24 24"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						height="1em"
+						width="1em"
+						xmlns="http://www.w3.org/2000/svg"
+					>
+						<polyline points="9 18 15 12 9 6"></polyline>
+					</svg>
+				</button>
+
+				<div
+					id="bottom-navigation"
+					class="flex justify-between items-center text-white text-6xl absolute px-4 py-2 left-0 right-0 bottom-0"
+				>
+					<button id="auto-play-button" type="button">
+						<svg
+							stroke="currentColor"
+							fill="currentColor"
+							stroke-width="0"
+							viewBox="0 0 512 512"
+							height="1em"
+							width="1em"
+							xmlns="http://www.w3.org/2000/svg"
+						>
+							<path
+								fill="none"
+								stroke-miterlimit="10"
+								stroke-width="32"
+								d="M112 111v290c0 17.44 17 28.52 31 20.16l247.9-148.37c12.12-7.25 12.12-26.33 0-33.58L143 90.84c-14-8.36-31 2.72-31 20.16z"
+							></path>
+						</svg>
+					</button>
+					<div id="navigation-dots" class="flex false items-center">
+						<button type="button">
+							<svg
+								stroke="currentColor"
+								fill="none"
+								stroke-width="0"
+								viewBox="0 0 15 15"
+								height="1em"
+								width="1em"
+								xmlns="http://www.w3.org/2000/svg"
+							>
+								<path
+									d="M9.875 7.5C9.875 8.81168 8.81168 9.875 7.5 9.875C6.18832 9.875 5.125 8.81168 5.125 7.5C5.125 6.18832 6.18832 5.125 7.5 5.125C8.81168 5.125 9.875 6.18832 9.875 7.5Z"
+									fill="currentColor"
+								></path>
+							</svg>
+						</button>
+						<button type="button">
+							<svg
+								stroke="currentColor"
+								fill="none"
+								stroke-width="0"
+								viewBox="0 0 15 15"
+								height="1em"
+								width="1em"
+								xmlns="http://www.w3.org/2000/svg"
+							>
+								<path
+									fill-rule="evenodd"
+									clip-rule="evenodd"
+									d="M7.5 9.125C8.39746 9.125 9.125 8.39746 9.125 7.5C9.125 6.60254 8.39746 5.875 7.5 5.875C6.60254 5.875 5.875 6.60254 5.875 7.5C5.875 8.39746 6.60254 9.125 7.5 9.125ZM7.5 10.125C8.94975 10.125 10.125 8.94975 10.125 7.5C10.125 6.05025 8.94975 4.875 7.5 4.875C6.05025 4.875 4.875 6.05025 4.875 7.5C4.875 8.94975 6.05025 10.125 7.5 10.125Z"
+									fill="currentColor"
+								></path>
+							</svg>
+						</button>
+						<button type="button">
+							<svg
+								stroke="currentColor"
+								fill="none"
+								stroke-width="0"
+								viewBox="0 0 15 15"
+								height="1em"
+								width="1em"
+								xmlns="http://www.w3.org/2000/svg"
+							>
+								<path
+									fill-rule="evenodd"
+									clip-rule="evenodd"
+									d="M7.5 9.125C8.39746 9.125 9.125 8.39746 9.125 7.5C9.125 6.60254 8.39746 5.875 7.5 5.875C6.60254 5.875 5.875 6.60254 5.875 7.5C5.875 8.39746 6.60254 9.125 7.5 9.125ZM7.5 10.125C8.94975 10.125 10.125 8.94975 10.125 7.5C10.125 6.05025 8.94975 4.875 7.5 4.875C6.05025 4.875 4.875 6.05025 4.875 7.5C4.875 8.94975 6.05025 10.125 7.5 10.125Z"
+									fill="currentColor"
+								></path>
+							</svg>
+						</button>
+						<button type="button">
+							<svg
+								stroke="currentColor"
+								fill="none"
+								stroke-width="0"
+								viewBox="0 0 15 15"
+								height="1em"
+								width="1em"
+								xmlns="http://www.w3.org/2000/svg"
+							>
+								<path
+									fill-rule="evenodd"
+									clip-rule="evenodd"
+									d="M7.5 9.125C8.39746 9.125 9.125 8.39746 9.125 7.5C9.125 6.60254 8.39746 5.875 7.5 5.875C6.60254 5.875 5.875 6.60254 5.875 7.5C5.875 8.39746 6.60254 9.125 7.5 9.125ZM7.5 10.125C8.94975 10.125 10.125 8.94975 10.125 7.5C10.125 6.05025 8.94975 4.875 7.5 4.875C6.05025 4.875 4.875 6.05025 4.875 7.5C4.875 8.94975 6.05025 10.125 7.5 10.125Z"
+									fill="currentColor"
+								></path>
+							</svg>
+						</button>
+						<button type="button">
+							<svg
+								stroke="currentColor"
+								fill="none"
+								stroke-width="0"
+								viewBox="0 0 15 15"
+								height="1em"
+								width="1em"
+								xmlns="http://www.w3.org/2000/svg"
+							>
+								<path
+									fill-rule="evenodd"
+									clip-rule="evenodd"
+									d="M7.5 9.125C8.39746 9.125 9.125 8.39746 9.125 7.5C9.125 6.60254 8.39746 5.875 7.5 5.875C6.60254 5.875 5.875 6.60254 5.875 7.5C5.875 8.39746 6.60254 9.125 7.5 9.125ZM7.5 10.125C8.94975 10.125 10.125 8.94975 10.125 7.5C10.125 6.05025 8.94975 4.875 7.5 4.875C6.05025 4.875 4.875 6.05025 4.875 7.5C4.875 8.94975 6.05025 10.125 7.5 10.125Z"
+									fill="currentColor"
+								></path>
+							</svg>
+						</button>
+					</div>
+					<button id="fullscreen-toggle" type="button">
+						<svg
+							stroke="currentColor"
+							fill="currentColor"
+							stroke-width="0"
+							viewBox="0 0 24 24"
+							height="1em"
+							width="1em"
+							xmlns="http://www.w3.org/2000/svg"
+						>
+							<path
+								d="M5 5h5V3H3v7h2zm5 14H5v-5H3v7h7zm11-5h-2v5h-5v2h7zm-2-4h2V3h-7v2h5z"
+							></path>
+						</svg>
+					</button>
+				</div>
+			</div>
+		</div>
+		<script src="./index.js" />
+	</body>
+</html>
